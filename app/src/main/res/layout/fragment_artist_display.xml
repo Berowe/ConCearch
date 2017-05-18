@@ -1,0 +1,78 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:background="@android:color/transparent"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.rowenetworks.concearch.fragments.ArtistDisplayFragment">
+
+    <ImageView
+        android:id="@+id/artist_imageView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:contentDescription="@string/image_content_description"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"/>
+
+    <LinearLayout
+        android:layout_below="@+id/artist_imageView"
+        android:id="@+id/artist_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <Button
+            android:id="@+id/artist_biography_button"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="@string/artist_biography_button"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"/>
+
+        <Button
+            android:id="@+id/artist_similar_artist_button"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="@string/artist_similar_artists_button"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"/>
+
+        <Button
+            android:id="@+id/artist_concerts_button"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="@string/artist_concerts_button"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/artist_biography_textView"
+        android:layout_below="@+id/artist_buttons"
+        android:textColor="@color/white"
+        android:textColorLink="@color/hyperlink_blue"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/similar_artist_recycler"
+        android:visibility="gone"
+        android:layout_below="@+id/artist_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/artist_concerts_recycler"
+        android:visibility="gone"
+        android:layout_below="@+id/artist_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</RelativeLayout>

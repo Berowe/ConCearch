@@ -1,0 +1,67 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:background="@android:color/transparent"
+             tools:context="com.rowenetworks.concearch.fragments.SearchFragment">
+
+    <EditText
+        android:id="@+id/search_editText"
+        android:hint="@string/search_editText"
+        android:inputType="text"
+        android:maxLines="1"
+        android:layout_width="325dp"
+        android:layout_height="48dp"/>
+
+    <Button
+        android:id="@+id/search_button"
+        android:layout_toEndOf="@id/search_editText"
+        android:drawableStart="@android:drawable/ic_menu_search"
+        android:background="@android:color/transparent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <RadioGroup
+        android:id="@+id/search_radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_editText"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/artist_radioButton"
+            android:text="@string/artist_search"
+            android:paddingStart="0dp"
+            android:paddingEnd="15dp"
+            android:checked="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:id="@+id/venue_radioButton"
+            android:text="@string/venue_search"
+            android:paddingStart="0dp"
+            android:paddingEnd="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <RadioButton
+            android:id="@+id/location_radioButton"
+            android:text="@string/location_search"
+            android:paddingStart="0dp"
+            android:paddingEnd="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/show_search_button"
+        android:text="@string/show_search_button"
+        android:layout_centerInParent="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/transparent"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

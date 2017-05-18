@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:background="@drawable/recyclecustomborder"
+              android:id="@+id/concert_list_container"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/concert_list_textView"
+        android:layout_width="match_parent"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_height="75dp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/concert_list_recyclerView"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"/>
+    <Button
+        android:id="@+id/concert_list_show_artists_button"
+        android:background="@android:color/transparent"
+        android:textColor="@color/hyperlink_blue"
+        android:text="@string/show_artists"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

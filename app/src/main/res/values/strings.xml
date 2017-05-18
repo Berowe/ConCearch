@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">ConCearch</string>
+
+    //Search Strings
+    <string name="search_editText">Search…</string>
+    <string name="artist_search">Artist</string>
+    <string name="venue_search">Venue</string>
+    <string name="location_search">Location</string>
+    <string name="show_search_button">Show Search Bar</string>
+    <string name="no_results">Search Found No Results…</string>
+
+    //Artist Strings
+    <string name="onTour">On Tour</string>
+    <string name="not_onTour">Not On Tour</string>
+    <string name="image_content_description">Artist Image</string>
+    <string name="artist_biography_button">Biography</string>
+    <string name="artist_similar_artists_button">Similar Artists</string>
+    <string name="artist_concerts_button">Upcoming Concerts</string>
+
+    //Concert Strings
+    <string name="show_artists">Show Artists Performing</string>
+    <string name="hide_artists">Hide Artists Performing</string>
+
+    //Results Strings
+    <string name="artist_results_checkBox">Show only OnTour artists</string>
+
+</resources>
