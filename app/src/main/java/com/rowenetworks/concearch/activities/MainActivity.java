@@ -60,9 +60,6 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onFragmentInteraction(int[] ids) {
         RadioGroup group = (RadioGroup) findViewById(R.id.search_radioGroup);
-        if (ids.length == 0)    {
-            Toast.makeText(this, R.string.no_results, Toast.LENGTH_SHORT).show();
-        }
         switch(group.getCheckedRadioButtonId())    {
             case R.id.artist_radioButton:
                 createArtistResults(ids);
@@ -71,14 +68,30 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void createArtistResults(int[] ids) {
-        Fragment lowerFrag = getSupportFragmentManager()
-                .findFragmentById(R.id.home_lowerFrame);
-        ArtistResultsFragment fragment;
-        if (lowerFrag != null)  {
-            if (lowerFrag instanceof ArtistResultsFragment) {
-                fragment = (ArtistResultsFragment) getSupportFragmentManager()
-                        .findFragmentById(R.id.home_lowerFrame);
-                fragment.setLists(ids);
+        if (ids.length == 0) {
+            Toast.makeText(this, R.string.no_results, Toast.LENGTH_SHORT).show();
+            searchFragment.onClick(searchFragment.getView());
+        } else {
+            Fragment lowerFrag = getSupportFragmentManager()
+                    .findFragmentById(R.id.home_lowerFrame);
+            ArtistResultsFragment fragment;
+            if (lowerFrag != null) {
+                if (lowerFrag instanceof ArtistResultsFragment) {
+                    fragment = (ArtistResultsFragment) getSupportFragmentManager()
+                            .findFragmentById(R.id.home_lowerFrame);
+                    fragment.setLists(ids);
+                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putIntArray(Constants.LIST_KEY, ids);
+                    fragment = new ArtistResultsFragment();
+                    fragment.setArguments(bundle);
+                    FragmentTransaction transaction = getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.home_lowerFrame, fragment)
+                            .addToBackStack(null);
+                    mainLayout.setBackground(getDrawable(R.drawable.sunset_background));
+                    transaction.commit();
+                }
             } else {
                 Bundle bundle = new Bundle();
                 bundle.putIntArray(Constants.LIST_KEY, ids);
@@ -91,17 +104,6 @@ public class MainActivity extends AppCompatActivity implements
                 mainLayout.setBackground(getDrawable(R.drawable.sunset_background));
                 transaction.commit();
             }
-        } else {
-            Bundle bundle = new Bundle();
-            bundle.putIntArray(Constants.LIST_KEY, ids);
-            fragment = new ArtistResultsFragment();
-            fragment.setArguments(bundle);
-            FragmentTransaction transaction = getSupportFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.home_lowerFrame, fragment)
-                    .addToBackStack(null);
-            mainLayout.setBackground(getDrawable(R.drawable.sunset_background));
-            transaction.commit();
         }
     }
 
@@ -111,8 +113,8 @@ public class MainActivity extends AppCompatActivity implements
             progressBar.setVisibility(View.GONE);
             lowerFrame.setVisibility(View.VISIBLE);
         } else {
-            lowerFrame.setVisibility(View.VISIBLE);
-            progressBar.setVisibility(View.GONE);
+            lowerFrame.setVisibility(View.GONE);
+            progressBar.setVisibility(View.VISIBLE);
         }
     }
 
@@ -128,5 +130,15 @@ public class MainActivity extends AppCompatActivity implements
                 .replace(R.id.home_lowerFrame, fragment)
                 .addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void onBackPressed()  {
+        super.onBackPressed();
+        Fragment fragment = getSupportFragmentManager()
+                .findFragmentById(R.id.home_lowerFrame);
+        if (fragment == null)   {
+            searchFragment.onClick(searchFragment.getView());
+        }
     }
 }

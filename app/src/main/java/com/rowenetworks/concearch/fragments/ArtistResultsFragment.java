@@ -99,7 +99,5 @@ public class ArtistResultsFragment extends Fragment implements View.OnClickListe
     }
 
     @Override
-    public void onClick(Artist artist) {
-        new ArtistDetailsTask(artist, mListener);
-    }
+    public void onClick(Artist artist) { new ArtistDetailsTask(artist, mListener); }
 }
