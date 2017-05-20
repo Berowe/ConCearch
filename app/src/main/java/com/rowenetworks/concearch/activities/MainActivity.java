@@ -11,7 +11,9 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rowenetworks.concearch.Constants;
@@ -27,9 +29,12 @@ public class MainActivity extends AppCompatActivity implements
         ArtistResultsFragment.OnArtistSelectedListener  {
 
     SearchFragment searchFragment;
+    EditText searchEditText;
+    RadioButton artistRadioButton;
     LinearLayout mainLayout;
     FrameLayout lowerFrame;
     ProgressBar progressBar;
+    Boolean artistSelectedFromList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
@@ -44,6 +49,21 @@ public class MainActivity extends AppCompatActivity implements
                 .beginTransaction()
                 .add(R.id.home_upperFrame, searchFragment);
         transaction.commit();
+    }
+
+    public void listArtistClicked(View view)    {
+        lowerFrame.setVisibility(View.GONE);
+        artistSelectedFromList = true;
+        searchEditText = (EditText) findViewById(R.id.search_editText);
+        artistRadioButton = (RadioButton) findViewById(R.id.artist_radioButton);
+        TextView sim_text = (TextView) view.findViewById(R.id.similar_artist_list_textView);
+        String artistName = "";
+        if (sim_text != null)    {
+            artistName = sim_text.getText().toString();
+        }
+        searchFragment.onClick(view);
+        searchEditText.setText(artistName);
+        artistRadioButton.setSelected(true);
     }
 
     @Override
@@ -70,8 +90,10 @@ public class MainActivity extends AppCompatActivity implements
     private void createArtistResults(int[] ids) {
         if (ids.length == 0) {
             Toast.makeText(this, R.string.no_results, Toast.LENGTH_SHORT).show();
+            lowerFrame.setVisibility(View.GONE);
             searchFragment.onClick(searchFragment.getView());
         } else {
+            lowerFrame.setVisibility(View.VISIBLE);
             Fragment lowerFrag = getSupportFragmentManager()
                     .findFragmentById(R.id.home_lowerFrame);
             ArtistResultsFragment fragment;
@@ -139,6 +161,12 @@ public class MainActivity extends AppCompatActivity implements
                 .findFragmentById(R.id.home_lowerFrame);
         if (fragment == null)   {
             searchFragment.onClick(searchFragment.getView());
+        }
+        if (artistSelectedFromList != null) {
+            if (artistSelectedFromList) {
+                lowerFrame.setVisibility(View.VISIBLE);
+                artistSelectedFromList = false;
+            }
         }
     }
 }

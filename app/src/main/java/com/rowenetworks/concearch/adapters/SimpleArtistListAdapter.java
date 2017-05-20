@@ -20,13 +20,13 @@ import java.util.ArrayList;
 public class SimpleArtistListAdapter extends
         RecyclerView.Adapter<SimpleArtistListAdapter.SimArtistListHolder> {
 
-    ArrayList<String> artistNames;
+    private ArrayList<String> artistNames;
 
     public SimpleArtistListAdapter(Artist artist) {
         artistNames = artist.getSimilarArtists();
     }
 
-    public SimpleArtistListAdapter(Concert concert) {
+    SimpleArtistListAdapter(Concert concert) {
         ArrayList<Artist> artists = concert.getArtists();
         artistNames = new ArrayList<>();
         for (Artist artist : artists) {
@@ -37,7 +37,7 @@ public class SimpleArtistListAdapter extends
     @Override
     public SimArtistListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflatedView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.holder_sim_artist_list, parent, false);
+                .inflate(R.layout.holder_simple_artist_list, parent, false);
         return new SimArtistListHolder(inflatedView);
     }
 
@@ -56,7 +56,7 @@ public class SimpleArtistListAdapter extends
         return artistNames.size();
     }
 
-    class SimArtistListHolder extends RecyclerView.ViewHolder implements View.OnClickListener   {
+    class SimArtistListHolder extends RecyclerView.ViewHolder   {
 
         private TextView mNameView;
 
@@ -64,11 +64,6 @@ public class SimpleArtistListAdapter extends
             super(view);
 
             mNameView = (TextView) view.findViewById(R.id.similar_artist_list_textView);
-        }
-
-        @Override
-        public void onClick(View v) {
-
         }
     }
 }

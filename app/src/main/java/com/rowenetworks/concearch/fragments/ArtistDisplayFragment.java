@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rowenetworks.concearch.Constants;
 import com.rowenetworks.concearch.R;
@@ -53,6 +54,12 @@ public class ArtistDisplayFragment extends Fragment implements View.OnClickListe
 
         artist = (Artist) getArguments().getSerializable(Constants.ARTIST_OBJECT_KEY);
 
+        setView(view);
+
+        return view;
+    }
+
+    private void setView(View view)  {
         artistImage = (ImageView) view.findViewById(R.id.artist_imageView);
         biographyButton = (Button) view.findViewById(R.id.artist_biography_button);
         similarButton = (Button) view.findViewById(R.id.artist_similar_artist_button);
@@ -62,9 +69,11 @@ public class ArtistDisplayFragment extends Fragment implements View.OnClickListe
         concerts = (RecyclerView) view.findViewById(R.id.artist_concerts_recycler);
         artistManager = new LinearLayoutManager(this.getActivity());
         concertManager = new LinearLayoutManager(this.getActivity());
-        setFields();
-
-        return view;
+        if (biography != null)  {
+            setFields();
+        } else {
+            setView(view);
+        }
     }
 
     private void setFields()    {
@@ -99,8 +108,10 @@ public class ArtistDisplayFragment extends Fragment implements View.OnClickListe
 
     private void setBiography() {
         Spanned spanned = Html.fromHtml(artist.getBiography(), Html.FROM_HTML_MODE_LEGACY);
-        biography.setText(spanned);
-        biography.setMovementMethod(LinkMovementMethod.getInstance());
+        if (biography != null)  {
+            biography.setText(spanned);
+            biography.setMovementMethod(LinkMovementMethod.getInstance());
+        }
     }
 
     private void setSimilarArtistRecycler()  {

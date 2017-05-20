@@ -90,8 +90,8 @@ public class ArtistDetailsTask {
 
         @Override
         protected void onPostExecute(Artist artist) {
-            mListener.onArtistProcess();
             mListener.onArtistSelected(artist);
+            mListener.onArtistProcess();
         }
     }
 }

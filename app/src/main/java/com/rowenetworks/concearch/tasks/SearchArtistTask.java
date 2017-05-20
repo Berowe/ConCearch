@@ -70,9 +70,9 @@ public class SearchArtistTask {
 
         @Override
         protected void onPostExecute(int[] ids) {
-            mListener.onSearchProcess();
             mListener.onFragmentInteraction(ids);
             mSearchButton.setEnabled(true);
+            mListener.onSearchProcess();
         }
     }
 }
