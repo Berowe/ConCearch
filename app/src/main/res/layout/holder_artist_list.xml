@@ -11,7 +11,7 @@
 
     <TextView
         android:id="@+id/artist_list_name_textView"
-        android:background="@drawable/recyclecustomborder"
+        android:background="@drawable/recyclecustomborder_1"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:gravity="center"

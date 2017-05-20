@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:background="@drawable/recyclecustomborder"
+              android:background="@drawable/recyclecustomborder_2"
               android:id="@+id/concert_list_container"
               android:orientation="vertical"
               android:layout_width="match_parent"

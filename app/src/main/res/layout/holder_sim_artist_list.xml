@@ -10,7 +10,7 @@
         android:gravity="center"
         android:textSize="25sp"
         android:textColor="@color/white"
-        android:background="@drawable/recyclecustomborder"
+        android:background="@drawable/recyclecustomborder_1"
         android:layout_width="match_parent"
         android:layout_height="50dp"/>
 
