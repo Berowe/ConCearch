@@ -11,14 +11,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.rowenetworks.concearch.Constants;
+import com.rowenetworks.concearch.tools.Constants;
 import com.rowenetworks.concearch.R;
 import com.rowenetworks.concearch.adapters.ConcertListAdapter;
 import com.rowenetworks.concearch.model.Concert;
 import com.rowenetworks.concearch.model.Venue;
 
 /**
- * A simple {@link Fragment} subclass.
+ * @author Braxton Rowe
+ * @version 1.0
+ * The VenueDisplayFragment shows the venue the user selects.
  */
 public class VenueDisplayFragment extends Fragment  {
 
@@ -72,6 +74,9 @@ public class VenueDisplayFragment extends Fragment  {
         mListener = null;
     }
 
+    /**
+     * This method is called in the ConcertListAdapter to interact with the MainActivity.
+     */
     public interface OnVenueConcertSelected {
         void onVenueConcertSelected(Concert concert);
     }

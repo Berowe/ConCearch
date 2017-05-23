@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.rowenetworks.concearch.Database;
+import com.rowenetworks.concearch.tools.Database;
 import com.rowenetworks.concearch.R;
 import com.rowenetworks.concearch.model.Venue;
 
@@ -16,6 +16,7 @@ import java.util.ArrayList;
 /**
  * @author Braxton Rowe
  * @version 1.0
+ * The VenueListAdapter is for RecycleViews showing a list of Venue objects.
  */
 
 public class VenueListAdapter extends RecyclerView.Adapter<VenueListAdapter.VenueListHolder>    {
@@ -58,6 +59,10 @@ public class VenueListAdapter extends RecyclerView.Adapter<VenueListAdapter.Venu
         mListener = listener;
     }
 
+    /**
+     * The VenueListHolder has a field for the Venue's ID, but it never seen by the user.  This ID
+     * is used to get the Venue object from the Database.
+     */
     class VenueListHolder extends RecyclerView.ViewHolder implements View.OnClickListener   {
         private TextView nameTextView;
         private TextView locationTextView;

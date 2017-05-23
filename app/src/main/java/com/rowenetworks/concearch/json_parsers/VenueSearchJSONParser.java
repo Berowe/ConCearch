@@ -1,6 +1,6 @@
 package com.rowenetworks.concearch.json_parsers;
 
-import com.rowenetworks.concearch.Database;
+import com.rowenetworks.concearch.tools.Database;
 import com.rowenetworks.concearch.model.Concert;
 import com.rowenetworks.concearch.model.Venue;
 
@@ -24,6 +24,12 @@ public class VenueSearchJSONParser {
     private static int[] ids;
     private static ArrayList<Integer> venues;
 
+    /**
+     * The initial call for Venue information from a user's search query.
+     * @param songKick The JSON object returned by the SongKick api response.
+     * @return Returns the list of IDs of Venue objects.
+     * @throws JSONException If retrieving data from the JSON object fails.
+     */
     public static int[] venueSearch(JSONObject songKick) throws JSONException {
 
         venues = new ArrayList<>();
@@ -42,6 +48,11 @@ public class VenueSearchJSONParser {
         return ids;
     }
 
+    /**
+     * Parses the array of venues from the JSON array from the venueSearch method.
+     * @param venueArray The JSON array of venues.
+     * @throws JSONException If retrieving data from the JSON object fails.
+     */
     private static void parseArray(JSONArray venueArray) throws JSONException   {
         for (int i = 0; i < venueArray.length(); i++)  {
             JSONObject venue = venueArray.getJSONObject(i);
@@ -49,6 +60,11 @@ public class VenueSearchJSONParser {
         }
     }
 
+    /**
+     * Parses each venue from the array of venues from the parseArray method.
+     * @param venue The JSON object of the venue.
+     * @throws JSONException If retrieving data from the JSON object fails.
+     */
     private static void parseVenue(JSONObject venue) throws JSONException   {
         int id = venue.getInt("id");
         String name = venue.getString(NAME);
@@ -95,6 +111,9 @@ public class VenueSearchJSONParser {
         venues.add(id);
     }
 
+    /**
+     * Helper method to create the int array to return to the VenueSearchTask.
+     */
     private static void makeIds()  {
         ids = new int[venues.size()];
         for (int i = 0; i < venues.size(); i++) {
@@ -102,6 +121,13 @@ public class VenueSearchJSONParser {
         }
     }
 
+    /**
+     * Method to get the list of concerts at a venue when the user selects a venue from the search
+     * results.
+     * @param songKick The JSON Object from the SongKick api response.
+     * @return Returns an ArrayList of concerts.
+     * @throws JSONException If retrieving data from the JSON object fails.
+     */
     public static ArrayList<Concert> getConcerts(JSONObject songKick)  throws JSONException    {
         ArrayList<Concert> concertList = new ArrayList<>();
 

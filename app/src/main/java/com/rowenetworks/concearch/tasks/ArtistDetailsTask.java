@@ -2,7 +2,7 @@ package com.rowenetworks.concearch.tasks;
 
 import android.os.AsyncTask;
 
-import com.rowenetworks.concearch.Constants;
+import com.rowenetworks.concearch.tools.Constants;
 import com.rowenetworks.concearch.fragments.ArtistResultsFragment.OnArtistSelectedListener;
 import com.rowenetworks.concearch.json_parsers.ArtistSearchJSONParser;
 import com.rowenetworks.concearch.model.Artist;
@@ -21,6 +21,8 @@ import java.net.URL;
 /**
  * @author Braxton Rowe
  * @version 1.0
+ * The ArtistDetailsTask uses AsyncTask to get API responses from both the SongKick and LastFM APIs
+ * when a user selects an artist from the artist search results.
  */
 
 public class ArtistDetailsTask {

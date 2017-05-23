@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import android.widget.Button;
 
 import com.rowenetworks.concearch.json_parsers.ArtistSearchJSONParser;
-import com.rowenetworks.concearch.Constants;
+import com.rowenetworks.concearch.tools.Constants;
 import com.rowenetworks.concearch.fragments.SearchFragment.OnSearchFragmentInteractionListener;
 
 import org.json.JSONException;
@@ -21,7 +21,8 @@ import java.net.URL;
 /**
  * @author Braxton Rowe
  * @version 1.0
- * This task is run when the user searches for an artist.
+ * The ArtistSearchTask uses AsyncTask to retrieve the API response from the SongKick API for a
+ * user's artist search.
  */
 
 public class ArtistSearchTask {

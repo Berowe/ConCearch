@@ -6,13 +6,14 @@ import java.util.ArrayList;
 /**
  * @author Braxton Rowe
  * @version 1.0
- * This class is the object to represent Events.
+ * This class is the model for Events.
  */
 
 public class Concert implements Serializable  {
 
     private String mName;
     private int mId;
+    //Here for possible future functionality.
     private String mCity;
     private String mWebsite;
     private Venue mVenue;

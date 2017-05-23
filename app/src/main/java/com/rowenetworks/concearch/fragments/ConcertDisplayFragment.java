@@ -10,13 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.rowenetworks.concearch.Constants;
+import com.rowenetworks.concearch.tools.Constants;
 import com.rowenetworks.concearch.R;
 import com.rowenetworks.concearch.adapters.SimpleListAdapter;
 import com.rowenetworks.concearch.model.Concert;
 
 /**
- * A simple {@link Fragment} subclass.
+ * @author Braxton Rowe
+ * @version 1.0
+ * The ConcertDisplayFragment shows the concert selected by the user.
  */
 public class ConcertDisplayFragment extends Fragment {
 

@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.rowenetworks.concearch.Database;
+import com.rowenetworks.concearch.tools.Database;
 import com.rowenetworks.concearch.R;
 import com.rowenetworks.concearch.model.Artist;
 
@@ -26,6 +26,10 @@ public class ArtistListAdapter extends RecyclerView.Adapter<ArtistListAdapter.Ar
     private ArrayList<Artist> mArtists;
     private OnClickListener mListener;
 
+    /**
+     * Constructor for the ArtistListAdapter.
+     * @param artists A list of Artist objects.
+     */
     public ArtistListAdapter(ArrayList<Artist> artists)    {
         mArtists = artists;
     }
@@ -49,10 +53,17 @@ public class ArtistListAdapter extends RecyclerView.Adapter<ArtistListAdapter.Ar
         }
     }
 
+    /**
+     * Interface for the fragment to interact with this adapter.
+     */
     public interface OnClickListener    {
         void onClick(Artist artist);
     }
 
+    /**
+     * Sets the OnClickListener for this adapter for the fragment to interact with the adapter.
+     * @param listener The listener for fragment/adapter interaction.
+     */
     public void setOnClickListener(final OnClickListener listener)  {
         mListener = listener;
     }
@@ -67,6 +78,10 @@ public class ArtistListAdapter extends RecyclerView.Adapter<ArtistListAdapter.Ar
         return mArtists.size();
     }
 
+    /**
+     * This holder sets up fields for the artist information.  The artist ID is never seen by the
+     * user, it is populated for the fragment to access the Artist object from the database.
+     */
     class ArtistListHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
 
         private TextView mName;
@@ -74,6 +89,10 @@ public class ArtistListAdapter extends RecyclerView.Adapter<ArtistListAdapter.Ar
         private TextView mId;
         private Context mContext;
 
+        /**
+         * The constructor for the ArtistListHolder
+         * @param view The view passed from the ArtistListAdapter.
+         */
         ArtistListHolder (View view)    {
             super(view);
             mName = (TextView) view.findViewById(R.id.artist_list_name_textView);
@@ -83,6 +102,10 @@ public class ArtistListAdapter extends RecyclerView.Adapter<ArtistListAdapter.Ar
             mContext = view.getContext();
         }
 
+        /**
+         * The OnClickListener for the mName TextView for fragment/adapter interaction.
+         * @param v The view reference.
+         */
         @Override
         public void onClick(View v) {
             mListener.onClick(Database.getArtist(Integer.parseInt(mId.getText().toString())));

@@ -1,4 +1,4 @@
-package com.rowenetworks.concearch;
+package com.rowenetworks.concearch.tools;
 
 import android.util.SparseArray;
 
@@ -9,7 +9,7 @@ import com.rowenetworks.concearch.model.Venue;
 /**
  * @author Braxton Rowe
  * @version 1.0
- * This class stores and retrieves Artists, Venues, and Concerts.
+ * This class is a tool that stores and retrieves Artists, Venues, and Concerts.
  */
 
 public class Database {

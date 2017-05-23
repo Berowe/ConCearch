@@ -1,7 +1,6 @@
 package com.rowenetworks.concearch.fragments;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,22 +9,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.rowenetworks.concearch.Constants;
-import com.rowenetworks.concearch.Database;
+import com.rowenetworks.concearch.tools.Constants;
+import com.rowenetworks.concearch.tools.Database;
 import com.rowenetworks.concearch.R;
-import com.rowenetworks.concearch.adapters.SimpleListAdapter;
 import com.rowenetworks.concearch.adapters.VenueListAdapter;
-import com.rowenetworks.concearch.model.Concert;
 import com.rowenetworks.concearch.model.Venue;
 import com.rowenetworks.concearch.tasks.VenueDetailsTask;
 
 import java.util.ArrayList;
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link VenueResultsFragment.OnVenueSelected} interface
- * to handle interaction events.
+ * @author Braxton Rowe
+ * @version 1.0
+ * VenueResultsFragment shows a list of venues based on the user's search query.
  */
 public class VenueResultsFragment extends Fragment implements VenueListAdapter.OnClickListener  {
 
@@ -68,6 +64,10 @@ public class VenueResultsFragment extends Fragment implements VenueListAdapter.O
         mListener = null;
     }
 
+    /**
+     * Updates the list of venues based off the user's search query.
+     * @param ids The IDs of venues to get Venue objects from the Database.
+     */
     public void updateList(int[] ids)    {
         makeList(ids);
         mAdapter = new VenueListAdapter(mVenues);
@@ -75,20 +75,28 @@ public class VenueResultsFragment extends Fragment implements VenueListAdapter.O
         mRecycler.setAdapter(mAdapter);
     }
 
-    @Override
-    public void onClick(Venue venue) {
-        new VenueDetailsTask(venue, mListener);
-    }
-
-    public interface OnVenueSelected {
-        void onVenueSelected(Venue venue);
-        void onVenueProcess();
-    }
-
+    /**
+     * Helper method to make an ArrayList for the VenueListAdapter.
+     * @param ids The IDs of venues to get Venue objects from the Database.
+     */
     private void makeList(int[] ids)    {
         mVenues = new ArrayList<>();
         for (int id: ids) {
             mVenues.add(Database.getVenue(id));
         }
     }
+
+    /**
+     * Methods called by the VenueDetailsTask for interaction with the MainActivity.
+     */
+    public interface OnVenueSelected {
+        void onVenueSelected(Venue venue);
+        void onVenueProcess();
+    }
+
+    @Override
+    public void onClick(Venue venue) {
+        new VenueDetailsTask(venue, mListener);
+    }
+
 }

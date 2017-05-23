@@ -19,6 +19,8 @@ import java.util.ArrayList;
 /**
  * @author Braxton Rowe
  * @version 1.0
+ * The ConcertListAdapter is for RecycleViews showing concerts that an artist is performing or venue
+ * is hosting.
  */
 
 public class ConcertListAdapter extends RecyclerView.Adapter<ConcertListAdapter.ConcertListHolder> {
@@ -28,6 +30,13 @@ public class ConcertListAdapter extends RecyclerView.Adapter<ConcertListAdapter.
     private OnConcertSelectedListener mArtistListener;
     private OnVenueConcertSelected mVenueListener;
 
+    /**
+     * First overloaded constructor used for ArtistDisplayFragment that sets up fragment/adapter
+     * interaction.
+     * @param activity The MainActivity used for the LinearLayoutManager in the holder class.
+     * @param concerts The list of concerts to be viewed.
+     * @param listener The listener for fragment/adapter interaction.
+     */
     public ConcertListAdapter(Activity activity, ArrayList<Concert> concerts,
                               OnConcertSelectedListener listener)    {
         mActivity = activity;
@@ -35,6 +44,13 @@ public class ConcertListAdapter extends RecyclerView.Adapter<ConcertListAdapter.
         mArtistListener = listener;
     }
 
+    /**
+     * Second overloaded constructor used for VenueDisplayFragment that sets up fragment/adapter
+     * interaction.
+     * @param activity The MainActivity used for the LinearLayoutManager in the holder class.
+     * @param concerts The list of concerts to be viewed.
+     * @param listener The listener for fragment/adapter interaction.
+     */
     public ConcertListAdapter(Activity activity, ArrayList<Concert> concerts,
                               OnVenueConcertSelected listener)    {
         mActivity = activity;
@@ -89,7 +105,6 @@ public class ConcertListAdapter extends RecyclerView.Adapter<ConcertListAdapter.
             super(view);
 
             mName = (TextView) view.findViewById(R.id.concert_list_textView);
-            mName.setOnClickListener(this);
             mExpand = (Button) view.findViewById(R.id.concert_list_show_artists_button);
             mExpand.setOnClickListener(this);
             mPerformers = (RecyclerView) view.findViewById(R.id.concert_list_recyclerView);

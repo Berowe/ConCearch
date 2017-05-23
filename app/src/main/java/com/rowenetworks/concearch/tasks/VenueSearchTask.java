@@ -3,7 +3,7 @@ package com.rowenetworks.concearch.tasks;
 import android.os.AsyncTask;
 import android.widget.Button;
 
-import com.rowenetworks.concearch.Constants;
+import com.rowenetworks.concearch.tools.Constants;
 import com.rowenetworks.concearch.fragments.SearchFragment.OnSearchFragmentInteractionListener;
 import com.rowenetworks.concearch.json_parsers.VenueSearchJSONParser;
 
@@ -21,6 +21,8 @@ import java.net.URL;
 /**
  * @author Braxton Rowe
  * @version 1.0
+ * The VenueSearchTask uses AsyncTask to retrieve an API response from the SongKick api when a user
+ * searches for a venue.
  */
 
 public class VenueSearchTask {

@@ -15,6 +15,11 @@ import com.rowenetworks.concearch.R;
 import com.rowenetworks.concearch.tasks.ArtistSearchTask;
 import com.rowenetworks.concearch.tasks.VenueSearchTask;
 
+/**
+ * @author Braxton Rowe
+ * @version 1.0
+ * The SearchFragment is where the user queries artists or venues.
+ */
 public class SearchFragment extends Fragment implements View.OnClickListener    {
 
     private OnSearchFragmentInteractionListener mListener;
@@ -41,29 +46,27 @@ public class SearchFragment extends Fragment implements View.OnClickListener    
         mArtistButton = (RadioButton) view.findViewById(R.id.artist_radioButton);
         mVenueButton = (RadioButton) view.findViewById(R.id.venue_radioButton);
         mSearchButton = (Button) view.findViewById(R.id.search_button);
-        mSearchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onSearchPressed(mSearchEditText.getText().toString());
-            }
-        });
+        mSearchButton.setOnClickListener(this);
         mShowSearchButton = (Button) view.findViewById(R.id.show_search_button);
         mShowSearchButton.setOnClickListener(this);
 
         return view;
     }
 
-    private void onSearchPressed(String search) {
+    /**
+     * Called when the user has clicked the search button.
+     * @param query The user's search query.
+     */
+    private void onSearchPressed(String query) {
         mSearchButton.setEnabled(false);
         hideSearch();
-
         if (mListener != null) {
             switch (mRadioGroup.getCheckedRadioButtonId())  {
                 case R.id.artist_radioButton:
-                    new ArtistSearchTask(mListener, search, mSearchButton);
+                    new ArtistSearchTask(mListener, query, mSearchButton);
                     break;
                 case R.id.venue_radioButton:
-                    new VenueSearchTask(mListener, search, mSearchButton);
+                    new VenueSearchTask(mListener, query, mSearchButton);
                     break;
             }
 
@@ -89,9 +92,17 @@ public class SearchFragment extends Fragment implements View.OnClickListener    
 
     @Override
     public void onClick(View v) {
-        showSearch();
+        if (v.getId() == R.id.show_search_button)   {
+            showSearch();
+        } else {
+            onSearchPressed(mSearchEditText.getText().toString());
+        }
     }
 
+    /**
+     * Called when the user clicks the Show Search button.  This button is only visible when the
+     * rest of the search fragment is not visible.
+     */
     private void showSearch()   {
         mShowSearchButton.setVisibility(View.GONE);
         mSearchButton.setVisibility(View.VISIBLE);
@@ -99,6 +110,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener    
         mRadioGroup.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Called when the user clicks the Search button.  The show search button is only visible when
+     * the rest of the search fragment is not visible.
+     */
     private void hideSearch()   {
         mSearchButton.setVisibility(View.GONE);
         mSearchEditText.setVisibility(View.GONE);
@@ -106,6 +121,9 @@ public class SearchFragment extends Fragment implements View.OnClickListener    
         mShowSearchButton.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * This interface is called by the ArtistDetailsTask to interact with the MainActivity.
+     */
     public interface OnSearchFragmentInteractionListener {
         void onFragmentInteraction(int[] ids);
         void onSearchProcess();

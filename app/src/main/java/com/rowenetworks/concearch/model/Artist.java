@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * @author Braxton Rowe
  * @version 1.0
- * This class is the object to represent Artists.
+ * This class is the model for Artists.
  */
 
 public class Artist implements Serializable {
@@ -14,6 +14,7 @@ public class Artist implements Serializable {
     private String mName;
     private int mId;
     private String mImageUrl;
+    //Here for possible future functionality
     private String mSongKickUrl;
     private Boolean mOnTour;
     private ArrayList<String> mSimilarArtists;
@@ -40,10 +41,6 @@ public class Artist implements Serializable {
 
     public String getImageUrl() {
         return mImageUrl;
-    }
-
-    public String getSongKickUrl() {
-        return mSongKickUrl;
     }
 
     public Boolean getOnTour()  {

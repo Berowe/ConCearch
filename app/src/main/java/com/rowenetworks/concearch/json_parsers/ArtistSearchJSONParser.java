@@ -1,8 +1,7 @@
 package com.rowenetworks.concearch.json_parsers;
 
-import com.rowenetworks.concearch.Constants;
-import com.rowenetworks.concearch.Database;
-import com.rowenetworks.concearch.R;
+import com.rowenetworks.concearch.tools.Constants;
+import com.rowenetworks.concearch.tools.Database;
 import com.rowenetworks.concearch.model.Artist;
 import com.rowenetworks.concearch.model.Concert;
 import com.rowenetworks.concearch.model.Venue;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 /**
  * @author Braxton Rowe
  * @version 1.0
- * Takes in a JSON object and parses it for information on artists.
+ * Takes in a JSON object and parses it for information on artists based off a user's search query.
  */
 
 public class ArtistSearchJSONParser {
@@ -24,6 +23,12 @@ public class ArtistSearchJSONParser {
     private static int[] ids;
     private static ArrayList<Integer> artists;
 
+    /**
+     * The initial call to get information based off the user's search query.
+     * @param songKick The JSON object returned by the SongKick api.
+     * @return The IDs of the Artist objects.
+     * @throws JSONException If retrieving data from the JSON object fails.
+     */
     public static int[] artistSearch(JSONObject songKick) throws JSONException {
 
         artists = new ArrayList<>();
@@ -41,6 +46,11 @@ public class ArtistSearchJSONParser {
         return ids;
     }
 
+    /**
+     * Helper method to parse the array of artists in the SongKick api response.
+     * @param artists The JSON array of artists.
+     * @throws JSONException If retrieving data from the JSON object fails.
+     */
     private static void parseArray(JSONArray artists) throws JSONException  {
 
         for (int i = 0; i < artists.length(); i++)  {
@@ -49,6 +59,11 @@ public class ArtistSearchJSONParser {
         }
     }
 
+    /**
+     * Helper method to parse each artist in the array of artists passed to parseArray method.
+     * @param artist The JSON object of the artist to parse.
+     * @throws JSONException If retrieving data from the JSON object fails.
+     */
     private static void parseArtist(JSONObject artist) throws JSONException {
         Boolean onTour = false;
         String name;
@@ -73,6 +88,9 @@ public class ArtistSearchJSONParser {
         Database.addArtist(id, new Artist(id, name, songKickUrl, onTour));
     }
 
+    /**
+     * Helper method to develop the int array to return to the activity.
+     */
     private static void makeIds()   {
         ids = new int[artists.size()];
         for (int i = 0; i < artists.size(); i++)    {
@@ -80,6 +98,14 @@ public class ArtistSearchJSONParser {
         }
     }
 
+    /**
+     * This is the secondary call made when the user selects an artist from the list of search
+     * results.
+     * @param artist The artist that the user selected.
+     * @param songKick The JSON object returned by the SongKick api response.
+     * @param lastFM The JSON object returned by the LastFM api response.
+     * @throws JSONException If retrieving data from the JSON object fails.
+     */
     public static void artistSelected(Artist artist, JSONObject songKick, JSONObject lastFM)
             throws JSONException   {
         artist.setConcerts(getConcerts(songKick));
@@ -88,6 +114,12 @@ public class ArtistSearchJSONParser {
         getLastFmInfo(artist, lastFM);
     }
 
+    /**
+     * Helper method to get concert information from a SongKick JSON object.
+     * @param songKick The JSON object from the SongKick api response.
+     * @return Returns an ArrayList of concerts.
+     * @throws JSONException If retrieving data from the JSON object fails.
+     */
     static ArrayList<Concert> getConcerts(JSONObject songKick)  throws JSONException    {
         ArrayList<Concert> concertList = new ArrayList<>();
 
@@ -104,6 +136,12 @@ public class ArtistSearchJSONParser {
         return concertList;
     }
 
+    /**
+     * Takes each concert object from the getConcerts method and parses it.
+     * @param concert The JSON object from the Concert array.
+     * @return Returns the Concert
+     * @throws JSONException If retrieving data from the JSON object fails.
+     */
     private static Concert getConcert(JSONObject concert) throws JSONException  {
         Concert c;
 
@@ -132,6 +170,12 @@ public class ArtistSearchJSONParser {
         return c;
     }
 
+    /**
+     * Takes the venue object from the getConcert method and parses it.
+     * @param venue The JSON object within the Concert JSON object.
+     * @return Returns the Venue object.
+     * @throws JSONException If retrieving data from the JSON object fails.
+     */
     private static Venue getVenue(JSONObject venue) throws JSONException    {
         Venue v;
 
@@ -155,6 +199,12 @@ public class ArtistSearchJSONParser {
         return v;
     }
 
+    /**
+     * Takes the JSON array of artists performing at the concert and parses it.
+     * @param artists The JSON array of artist perfomring.
+     * @return An ArrayList of Artist object.
+     * @throws JSONException If retrieving data from the JSON object fails.
+     */
     private static ArrayList<Artist> getArtists(JSONArray artists) throws JSONException    {
         ArrayList<Artist> artistList = new ArrayList<>();
 
@@ -179,6 +229,12 @@ public class ArtistSearchJSONParser {
         return artistList;
     }
 
+    /**
+     * Takes the JSON object from the LastFM and parses it.
+     * @param artist The artist to update with the LastFM data.
+     * @param lastFM The JSON object from the LastFM api response.
+     * @throws JSONException If retrieving data from the JSON object fails.
+     */
     private static void getLastFmInfo(Artist artist, JSONObject lastFM) throws JSONException    {
         if (lastFM.has("artist"))   {
             ArrayList<String> simList = new ArrayList<>();

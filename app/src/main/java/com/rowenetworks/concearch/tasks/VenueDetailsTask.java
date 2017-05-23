@@ -2,9 +2,8 @@ package com.rowenetworks.concearch.tasks;
 
 import android.os.AsyncTask;
 
-import com.rowenetworks.concearch.Constants;
+import com.rowenetworks.concearch.tools.Constants;
 import com.rowenetworks.concearch.fragments.VenueResultsFragment.OnVenueSelected;
-import com.rowenetworks.concearch.json_parsers.ArtistSearchJSONParser;
 import com.rowenetworks.concearch.json_parsers.VenueSearchJSONParser;
 import com.rowenetworks.concearch.model.Venue;
 
@@ -22,6 +21,8 @@ import java.net.URL;
 /**
  * @author Braxton Rowe
  * @version 1.0
+ * The VenueDetailsTask uses AsyncTask to retrieve an API response from SongKick to get upcoming
+ * concert information when a user selects a venue from the search results.
  */
 
 public class VenueDetailsTask {

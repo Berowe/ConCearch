@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.rowenetworks.concearch.Constants;
+import com.rowenetworks.concearch.tools.Constants;
 import com.rowenetworks.concearch.R;
 import com.rowenetworks.concearch.adapters.ConcertListAdapter;
 import com.rowenetworks.concearch.adapters.SimpleListAdapter;
@@ -25,7 +25,9 @@ import com.rowenetworks.concearch.model.Concert;
 import com.squareup.picasso.Picasso;
 
 /**
- * A simple {@link Fragment} subclass.
+ * @author Braxton Rowe
+ * @version 1.0
+ * Fragment to show a specific artist that the user has selected from the artist search results.
  */
 public class ArtistDisplayFragment extends Fragment implements View.OnClickListener {
 
@@ -79,10 +81,19 @@ public class ArtistDisplayFragment extends Fragment implements View.OnClickListe
         mListener = null;
     }
 
+    /**
+     * This interface is used in the MainActivity to show the concert information selected by the
+     * user.
+     */
     public interface OnConcertSelectedListener  {
         void onConcertSelected(Concert concert);
     }
 
+    /**
+     * Shows the informaiton of the Artist.  There are times when the information does not populate
+     * and so the method calls itself again if the biography field is null.
+     * @param view The fragment's view object.
+     */
     private void setView(View view)  {
         artistImage = (ImageView) view.findViewById(R.id.artist_imageView);
         biographyButton = (Button) view.findViewById(R.id.artist_biography_button);
@@ -100,6 +111,9 @@ public class ArtistDisplayFragment extends Fragment implements View.OnClickListe
         }
     }
 
+    /**
+     * Helper method to set the fields in the fragment's view.
+     */
     private void setFields()    {
         setImage();
         setButtons();
@@ -108,6 +122,9 @@ public class ArtistDisplayFragment extends Fragment implements View.OnClickListe
         setConcertsRecycler();
     }
 
+    /**
+     * Helper method to set the ImageView for the artist.
+     */
     private void setImage() {
         try{
             if (!artist.getImageUrl().equals("")) {
@@ -124,12 +141,20 @@ public class ArtistDisplayFragment extends Fragment implements View.OnClickListe
         }
     }
 
+    /**
+     * Helper method to set the buttons' onClickListeners for the fragment's buttons.
+     */
     private void setButtons()   {
         biographyButton.setOnClickListener(this);
         similarButton.setOnClickListener(this);
         concertsButton.setOnClickListener(this);
     }
 
+    /**
+     * Sets the TextView with the artist's biography.  The biography comes from LastFM api and has
+     * HTML code embedded that needs to be shown properly.  The setMovementMethod allows for that
+     * HTML link to open the phone's browser with the HTML link provided by LastFM.
+     */
     private void setBiography() {
         Spanned spanned = Html.fromHtml(artist.getBiography(), Html.FROM_HTML_MODE_LEGACY);
         if (biography != null)  {
@@ -138,12 +163,18 @@ public class ArtistDisplayFragment extends Fragment implements View.OnClickListe
         }
     }
 
+    /**
+     * Helper method to set the similar artist list.
+     */
     private void setSimilarArtistRecycler()  {
         simArtistAdapter = new SimpleListAdapter(artist);
         similarArtists.setLayoutManager(artistManager);
         similarArtists.setAdapter(simArtistAdapter);
     }
 
+    /**
+     * Helper method to set the artist's upcoming concert list.
+     */
     private void setConcertsRecycler()  {
         concertAdapter = new ConcertListAdapter(this.getActivity(), artist.getConcerts(),
                 mListener);
@@ -151,6 +182,11 @@ public class ArtistDisplayFragment extends Fragment implements View.OnClickListe
         concerts.setAdapter(concertAdapter);
     }
 
+    /**
+     * Shows and hides TextViews based on what the user has selected.  In the XML layout, these
+     * TextViews all overlap.  The artist's biography is visible by default.
+     * @param v The button clicked
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

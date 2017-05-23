@@ -1,13 +1,12 @@
 package com.rowenetworks.concearch.model;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
  * @author Braxton Rowe
  * @version 1.0
- * This class is the object to represent Venues.
+ * This class is the model for Venues.
  */
 
 public class Venue implements Serializable  {

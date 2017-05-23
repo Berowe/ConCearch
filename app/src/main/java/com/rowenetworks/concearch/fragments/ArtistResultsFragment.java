@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 
-import com.rowenetworks.concearch.Constants;
-import com.rowenetworks.concearch.Database;
+import com.rowenetworks.concearch.tools.Constants;
+import com.rowenetworks.concearch.tools.Database;
 import com.rowenetworks.concearch.R;
 import com.rowenetworks.concearch.adapters.ArtistListAdapter;
 import com.rowenetworks.concearch.model.Artist;
@@ -19,6 +19,11 @@ import com.rowenetworks.concearch.tasks.ArtistDetailsTask;
 
 import java.util.ArrayList;
 
+/**
+ * @author Braxton Rowe
+ * @version 1.0
+ * The ArtistResultsFragment shows a list of artists pertaining to a user's search query.
+ */
 public class ArtistResultsFragment extends Fragment implements View.OnClickListener,
         ArtistListAdapter.OnClickListener   {
 
@@ -69,11 +74,19 @@ public class ArtistResultsFragment extends Fragment implements View.OnClickListe
         mListener = null;
     }
 
+    /**
+     * Interface for fragment interaction.  Called by ArtistDetailsTask.
+     */
     public interface OnArtistSelectedListener   {
         void onArtistSelected(Artist artist);
         void onArtistProcess();
     }
 
+    /**
+     * Method to set the two lists.  One for all artists pertaining to the user's search query, one
+     * for only artists who are on tour.
+     * @param ids The IDs of the artists for Database reference.
+     */
     public void setLists(int[] ids)    {
         mAllArtists = new ArrayList<>();
         mOnTourArtists = new ArrayList<>();
@@ -91,6 +104,11 @@ public class ArtistResultsFragment extends Fragment implements View.OnClickListe
         switchLists(mCheckbox.isChecked());
     }
 
+    /**
+     * Method called when the user checks or unchecks the mCheckbox for all artists or on tour
+     * artists.
+     * @param checked mCheckbox checked state.
+     */
     private void switchLists(boolean checked)  {
         if (checked)    {
             mRecycler.setAdapter(mOnTourAdapter);
