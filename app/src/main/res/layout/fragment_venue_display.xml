@@ -1,0 +1,71 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.rowenetworks.concearch.fragments.VenueDisplayFragment">
+
+    <ImageView
+        android:id="@+id/venue_display_imageView"
+        android:contentDescription="@string/image_content_description"
+        android:src="@drawable/powered_by_songkick"
+        android:layout_alignParentEnd="true"
+        android:layout_width="75dp"
+        android:layout_height="50dp"/>
+
+    <TextView
+        android:id="@+id/venue_display_name_textView"
+        android:layout_below="@+id/venue_display_imageView"
+        android:textSize="25sp"
+        android:textColor="@color/white"
+        android:textStyle="bold|italic"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/venue_display_location_textView"
+        android:layout_below="@+id/venue_display_name_textView"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/venue_display_phone_textView"
+        android:layout_below="@+id/venue_display_location_textView"
+        android:layout_alignParentStart="true"
+        android:textColorLink="@color/hyperlink_blue"
+        android:autoLink="phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/venue_display_website_textView"
+        android:layout_below="@+id/venue_display_location_textView"
+        android:textColorLink="@color/hyperlink_blue"
+        android:autoLink="web"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/venue_display_concert_header_textView"
+        android:layout_below="@+id/venue_display_website_textView"
+        android:text="@string/artist_concerts_button"
+        android:layout_centerInParent="true"
+        android:paddingTop="10dp"
+        android:textStyle="bold|italic"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/venue_display_recycleView"
+        android:paddingTop="10dp"
+        android:layout_below="@+id/venue_display_concert_header_textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

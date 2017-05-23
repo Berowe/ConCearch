@@ -1,0 +1,92 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:background="@drawable/sunset_background"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.rowenetworks.concearch.fragments.ConcertDisplayFragment">
+
+    <TextView
+        android:id="@+id/concert_display_name_textView"
+        android:textSize="25sp"
+        android:textColor="@color/white"
+        android:textStyle="bold|italic"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:contentDescription="@string/songkick_logo_contentDescription"
+        android:layout_width="75dp"
+        android:layout_height="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/concert_display_name_textView"
+        android:src="@drawable/powered_by_songkick"/>
+
+
+    <TextView
+        android:id="@+id/concert_display_details_textView"
+        android:text="@string/details"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_below="@+id/concert_display_name_textView"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/concert_display_venue_textView"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:text="@string/venue_header"
+        android:layout_below="@+id/concert_display_details_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/concert_display_venueName_textView"
+        android:textSize="15sp"
+        android:textColor="@color/white"
+        android:layout_below="@+id/concert_display_details_textView"
+        android:layout_toEndOf="@+id/concert_display_venue_textView"
+        android:paddingStart="5dp"
+        android:paddingEnd="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/concert_display_website_title_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/concert_display_venueName_textView"
+        android:layout_centerInParent="true"
+        android:text="@string/concert_website_header"
+        android:textColor="@color/white"/>
+
+    <TextView
+        android:id="@+id/concert_display_website_textView"
+        android:autoLink="web"
+        android:textColorLink="@color/hyperlink_blue"
+        android:layout_below="@id/concert_display_website_title_textView"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/concert_display_artists_performing_textView"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:text="@string/artists_performing"
+        android:layout_below="@+id/concert_display_website_textView"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/concert_display_recycleView"
+        android:layout_below="@+id/concert_display_artists_performing_textView"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

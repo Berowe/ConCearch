@@ -14,18 +14,22 @@ public class Venue implements Serializable  {
 
     private String mName;
     private int mId;
-    private String mCity;
-    private String mState;
-    private String mCountry;
+    private String mAddress;
+    private String mPhone;
     private String mWebsite;
     private ArrayList<Concert> mConcerts;
 
-    public Venue(int id, String name, String city, String state, String country, String website)   {
+    public Venue(int id, String name, String website)   {
         mId = id;
         mName = name;
-        mCity = city;
-        mState = state;
-        mCountry = country;
+        mWebsite = website;
+    }
+
+    public Venue(int id, String name, String address, String phone, String website)   {
+        mId = id;
+        mName = name;
+        mAddress = address;
+        mPhone = phone;
         mWebsite = website;
     }
 
@@ -35,13 +39,15 @@ public class Venue implements Serializable  {
 
     public int getId()   { return mId; }
 
-    public String getCity() { return mCity; }
-
-    public String getState() { return mState; }
-
-    public String getCountry()  { return mCountry; }
+    public String getAddress()  { return mAddress; }
 
     public String getUrl()  { return mWebsite; }
+
+    public String getPhone()    { return mPhone; }
+
+    public void setConcerts(ArrayList<Concert> concerts) {
+        mConcerts = concerts;
+    }
 
     public ArrayList<Concert> getConcerts() { return mConcerts; }
 }

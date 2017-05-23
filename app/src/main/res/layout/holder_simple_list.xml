@@ -3,16 +3,16 @@
               android:id="@+id/similar_artist_container"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="50dp">
+              android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/similar_artist_list_textView"
+        android:id="@+id/simple_list_textView"
         android:gravity="center"
         android:textSize="25sp"
         android:textColor="@color/white"
         android:background="@drawable/recyclecustomborder_1"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:onClick="listArtistClicked"/>
 
 </LinearLayout>

@@ -63,6 +63,12 @@ public class ArtistResultsFragment extends Fragment implements View.OnClickListe
         }
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
     public interface OnArtistSelectedListener   {
         void onArtistSelected(Artist artist);
         void onArtistProcess();

@@ -6,9 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.rowenetworks.concearch.Database;
 import com.rowenetworks.concearch.R;
 import com.rowenetworks.concearch.model.Artist;
 import com.rowenetworks.concearch.model.Concert;
+import com.rowenetworks.concearch.model.Venue;
 
 import java.util.ArrayList;
 
@@ -17,33 +19,41 @@ import java.util.ArrayList;
  * @version 1.0
  */
 
-public class SimpleArtistListAdapter extends
-        RecyclerView.Adapter<SimpleArtistListAdapter.SimArtistListHolder> {
+public class SimpleListAdapter extends
+        RecyclerView.Adapter<SimpleListAdapter.SimArtistListHolder> {
 
-    private ArrayList<String> artistNames;
+    private ArrayList<String> mList;
 
-    public SimpleArtistListAdapter(Artist artist) {
-        artistNames = artist.getSimilarArtists();
+    public SimpleListAdapter(Artist artist) {
+        mList = artist.getSimilarArtists();
     }
 
-    SimpleArtistListAdapter(Concert concert) {
+    public SimpleListAdapter(Concert concert) {
         ArrayList<Artist> artists = concert.getArtists();
-        artistNames = new ArrayList<>();
+        mList = new ArrayList<>();
         for (Artist artist : artists) {
-            artistNames.add(artist.getName());
+            mList.add(artist.getName());
+        }
+    }
+
+    public SimpleListAdapter(int[] ids) {
+        mList = new ArrayList<>();
+        for (int v : ids) {
+            Venue venue = Database.getVenue(v);
+            mList.add(venue.getName());
         }
     }
 
     @Override
     public SimArtistListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View inflatedView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.holder_simple_artist_list, parent, false);
+                .inflate(R.layout.holder_simple_list, parent, false);
         return new SimArtistListHolder(inflatedView);
     }
 
     @Override
     public void onBindViewHolder(SimArtistListHolder holder, int position) {
-        holder.mNameView.setText(artistNames.get(position));
+        holder.mNameView.setText(mList.get(position));
     }
 
     @Override
@@ -53,7 +63,7 @@ public class SimpleArtistListAdapter extends
 
     @Override
     public int getItemCount() {
-        return artistNames.size();
+        return mList.size();
     }
 
     class SimArtistListHolder extends RecyclerView.ViewHolder   {
@@ -62,8 +72,7 @@ public class SimpleArtistListAdapter extends
 
         SimArtistListHolder (View view) {
             super(view);
-
-            mNameView = (TextView) view.findViewById(R.id.similar_artist_list_textView);
+            mNameView = (TextView) view.findViewById(R.id.simple_list_textView);
         }
     }
 }

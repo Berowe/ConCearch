@@ -24,11 +24,11 @@ import java.net.URL;
  * This task is run when the user searches for an artist.
  */
 
-public class SearchArtistTask {
+public class ArtistSearchTask {
     private OnSearchFragmentInteractionListener mListener;
     private Button mSearchButton;
 
-    public SearchArtistTask(OnSearchFragmentInteractionListener listener, String artist,
+    public ArtistSearchTask(OnSearchFragmentInteractionListener listener, String artist,
                             Button button)    {
         mListener = listener;
         mSearchButton = button;
@@ -39,6 +39,7 @@ public class SearchArtistTask {
 
         @Override
         protected void onPreExecute()  {
+            mSearchButton.setEnabled(false);
             mListener.onSearchProcess();
         }
 
@@ -51,6 +52,7 @@ public class SearchArtistTask {
             try {
                 URL url = new URL(songKickUrl);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestProperty("Accept-Encoding", "identity");
                 InputStream stream = new BufferedInputStream(connection.getInputStream());
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(stream));
                 StringBuilder builder = new StringBuilder();
@@ -58,6 +60,8 @@ public class SearchArtistTask {
                 while ((inputString = bufferedReader.readLine()) != null) {
                     builder.append(inputString);
                 }
+
+                connection.disconnect();
 
                 JSONObject songRoot = new JSONObject(builder.toString());
                 ids = ArtistSearchJSONParser.artistSearch(songRoot);

@@ -1,7 +1,6 @@
 package com.rowenetworks.concearch.fragments;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,12 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.rowenetworks.concearch.R;
-import com.rowenetworks.concearch.tasks.SearchArtistTask;
+import com.rowenetworks.concearch.tasks.ArtistSearchTask;
+import com.rowenetworks.concearch.tasks.VenueSearchTask;
 
 public class SearchFragment extends Fragment implements View.OnClickListener    {
 
@@ -62,10 +61,10 @@ public class SearchFragment extends Fragment implements View.OnClickListener    
         if (mListener != null) {
             switch (mRadioGroup.getCheckedRadioButtonId())  {
                 case R.id.artist_radioButton:
-                    new SearchArtistTask(mListener, search, mSearchButton);
+                    new ArtistSearchTask(mListener, search, mSearchButton);
                     break;
                 case R.id.venue_radioButton:
-
+                    new VenueSearchTask(mListener, search, mSearchButton);
                     break;
                 case R.id.location_radioButton:
 

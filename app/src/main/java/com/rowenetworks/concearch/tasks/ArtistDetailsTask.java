@@ -65,6 +65,8 @@ public class ArtistDetailsTask {
                         builder.append(inputString);
                     }
 
+                    connection.disconnect();
+
                     JSONObject songRoot = new JSONObject(builder.toString());
 
                     url = new URL(lastFmUrl);
@@ -75,6 +77,8 @@ public class ArtistDetailsTask {
                     while((inputString = bufferedReader.readLine()) != null)    {
                         builder.append(inputString);
                     }
+
+                    connection.disconnect();
 
                     JSONObject lastRoot = new JSONObject(builder.toString());
 

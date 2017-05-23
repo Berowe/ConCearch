@@ -1,6 +1,7 @@
 package com.rowenetworks.concearch.fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,19 +15,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rowenetworks.concearch.Constants;
 import com.rowenetworks.concearch.R;
 import com.rowenetworks.concearch.adapters.ConcertListAdapter;
-import com.rowenetworks.concearch.adapters.SimpleArtistListAdapter;
+import com.rowenetworks.concearch.adapters.SimpleListAdapter;
 import com.rowenetworks.concearch.model.Artist;
+import com.rowenetworks.concearch.model.Concert;
 import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ArtistDisplayFragment extends Fragment implements View.OnClickListener {
+
+    OnConcertSelectedListener mListener;
 
     Artist artist;
     ImageView artistImage;
@@ -38,7 +41,7 @@ public class ArtistDisplayFragment extends Fragment implements View.OnClickListe
     RecyclerView concerts;
     LinearLayoutManager artistManager;
     LinearLayoutManager concertManager;
-    SimpleArtistListAdapter simArtistAdapter;
+    SimpleListAdapter simArtistAdapter;
     ConcertListAdapter concertAdapter;
 
 
@@ -57,6 +60,27 @@ public class ArtistDisplayFragment extends Fragment implements View.OnClickListe
         setView(view);
 
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnConcertSelectedListener) {
+            mListener = (OnConcertSelectedListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnConcertSelectedListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    public interface OnConcertSelectedListener  {
+        void onConcertSelected(Concert concert);
     }
 
     private void setView(View view)  {
@@ -115,13 +139,14 @@ public class ArtistDisplayFragment extends Fragment implements View.OnClickListe
     }
 
     private void setSimilarArtistRecycler()  {
-        simArtistAdapter = new SimpleArtistListAdapter(artist);
+        simArtistAdapter = new SimpleListAdapter(artist);
         similarArtists.setLayoutManager(artistManager);
         similarArtists.setAdapter(simArtistAdapter);
     }
 
     private void setConcertsRecycler()  {
-        concertAdapter = new ConcertListAdapter(this.getActivity(), artist.getConcerts());
+        concertAdapter = new ConcertListAdapter(this.getActivity(), artist.getConcerts(),
+                mListener);
         concerts.setLayoutManager(concertManager);
         concerts.setAdapter(concertAdapter);
     }

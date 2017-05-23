@@ -1,6 +1,7 @@
 package com.rowenetworks.concearch.activities;
 
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -21,12 +22,20 @@ import com.rowenetworks.concearch.Database;
 import com.rowenetworks.concearch.R;
 import com.rowenetworks.concearch.fragments.ArtistDisplayFragment;
 import com.rowenetworks.concearch.fragments.ArtistResultsFragment;
+import com.rowenetworks.concearch.fragments.ConcertDisplayFragment;
 import com.rowenetworks.concearch.fragments.SearchFragment;
+import com.rowenetworks.concearch.fragments.VenueDisplayFragment;
+import com.rowenetworks.concearch.fragments.VenueResultsFragment;
 import com.rowenetworks.concearch.model.Artist;
+import com.rowenetworks.concearch.model.Concert;
+import com.rowenetworks.concearch.model.Venue;
 
 public class MainActivity extends AppCompatActivity implements
         SearchFragment.OnSearchFragmentInteractionListener,
-        ArtistResultsFragment.OnArtistSelectedListener  {
+        ArtistResultsFragment.OnArtistSelectedListener,
+        ArtistDisplayFragment.OnConcertSelectedListener,
+        VenueResultsFragment.OnVenueSelected,
+        VenueDisplayFragment.OnVenueConcertSelected {
 
     SearchFragment searchFragment;
     EditText searchEditText;
@@ -56,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements
         artistSelectedFromList = true;
         searchEditText = (EditText) findViewById(R.id.search_editText);
         artistRadioButton = (RadioButton) findViewById(R.id.artist_radioButton);
-        TextView sim_text = (TextView) view.findViewById(R.id.similar_artist_list_textView);
+        TextView sim_text = (TextView) view.findViewById(R.id.simple_list_textView);
         String artistName = "";
         if (sim_text != null)    {
             artistName = sim_text.getText().toString();
@@ -83,6 +92,9 @@ public class MainActivity extends AppCompatActivity implements
         switch(group.getCheckedRadioButtonId())    {
             case R.id.artist_radioButton:
                 createArtistResults(ids);
+                break;
+            case R.id.venue_radioButton:
+                createVenueResults(ids);
                 break;
         }
     }
@@ -129,6 +141,48 @@ public class MainActivity extends AppCompatActivity implements
         }
     }
 
+    private void createVenueResults(int[] ids)  {
+        if (ids.length == 0)    {
+            Toast.makeText(this, R.string.no_results, Toast.LENGTH_SHORT).show();
+            lowerFrame.setVisibility(View.GONE);
+            searchFragment.onClick(searchFragment.getView());
+        } else {
+            lowerFrame.setVisibility(View.VISIBLE);
+            Fragment lowerFrag = getSupportFragmentManager()
+                    .findFragmentById(R.id.home_lowerFrame);
+            VenueResultsFragment fragment;
+            if (lowerFrag != null)  {
+                if (lowerFrag instanceof VenueResultsFragment)  {
+                    fragment = (VenueResultsFragment) getSupportFragmentManager()
+                            .findFragmentById(R.id.home_lowerFrame);
+                    fragment.updateList(ids);
+                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putIntArray(Constants.LIST_KEY, ids);
+                    fragment = new VenueResultsFragment();
+                    fragment.setArguments(bundle);
+                    FragmentTransaction transaction = getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.home_lowerFrame, fragment)
+                            .addToBackStack(null);
+                    mainLayout.setBackground(getDrawable(R.drawable.sunset_background));
+                    transaction.commit();
+                }
+            } else {
+                Bundle bundle = new Bundle();
+                bundle.putIntArray(Constants.LIST_KEY, ids);
+                fragment = new VenueResultsFragment();
+                fragment.setArguments(bundle);
+                FragmentTransaction transaction = getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.home_lowerFrame, fragment)
+                        .addToBackStack(null);
+                mainLayout.setBackground(getDrawable(R.drawable.sunset_background));
+                transaction.commit();
+            }
+        }
+    }
+
     @Override
     public void onArtistProcess() {
         if (lowerFrame.getVisibility() == View.GONE)    {
@@ -138,6 +192,19 @@ public class MainActivity extends AppCompatActivity implements
             lowerFrame.setVisibility(View.GONE);
             progressBar.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void onConcertSelected(Concert concert) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.CONCERT_OBJECT_KEY, concert);
+        ConcertDisplayFragment fragment = new ConcertDisplayFragment();
+        fragment.setArguments(bundle);
+        FragmentTransaction transaction = getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.home_lowerFrame, fragment)
+                .addToBackStack(null);
+        transaction.commit();
     }
 
     @Override
@@ -168,5 +235,28 @@ public class MainActivity extends AppCompatActivity implements
                 artistSelectedFromList = false;
             }
         }
+    }
+
+    @Override
+    public void onVenueConcertSelected(Concert concert) {
+        onConcertSelected(concert);
+    }
+
+    @Override
+    public void onVenueSelected(Venue venue) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.VENUE_OBJECT_KEY, venue);
+        VenueDisplayFragment fragment = new VenueDisplayFragment();
+        fragment.setArguments(bundle);
+        FragmentTransaction transaction = getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.home_lowerFrame, fragment)
+                .addToBackStack(null);
+        transaction.commit();
+    }
+
+    @Override
+    public void onVenueProcess() {
+        onArtistProcess();
     }
 }

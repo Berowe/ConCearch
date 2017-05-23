@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">ConCearch</string>
+    <string name="songkick_logo_contentDescription">Powered by SongKick</string>
 
     //Search Strings
     <string name="search_editText">Search…</string>
@@ -20,6 +21,13 @@
     //Concert Strings
     <string name="show_artists">Show Artists Performing</string>
     <string name="hide_artists">Hide Artists Performing</string>
+    <string name="details">Details</string>
+    <string name="venue_header">Venue:</string>
+    <string name="concert_website_header">Concert Website</string>
+    <string name="artists_performing">Performing Artists</string>
+
+    //Venue Strings
+    <string name="show_details">Look Up Venue Details</string>
 
     //Results Strings
     <string name="artist_results_checkBox">Show only OnTour artists</string>

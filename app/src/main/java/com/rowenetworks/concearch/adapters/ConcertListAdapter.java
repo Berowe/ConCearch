@@ -10,10 +10,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.rowenetworks.concearch.R;
+import com.rowenetworks.concearch.fragments.VenueDisplayFragment.OnVenueConcertSelected;
 import com.rowenetworks.concearch.model.Concert;
-import com.rowenetworks.concearch.model.Venue;
-
-import org.w3c.dom.Text;
+import com.rowenetworks.concearch.fragments.ArtistDisplayFragment.OnConcertSelectedListener;
 
 import java.util.ArrayList;
 
@@ -24,12 +23,23 @@ import java.util.ArrayList;
 
 public class ConcertListAdapter extends RecyclerView.Adapter<ConcertListAdapter.ConcertListHolder> {
 
-    Activity mActivity;
-    ArrayList<Concert> mConcerts;
+    private Activity mActivity;
+    private ArrayList<Concert> mConcerts;
+    private OnConcertSelectedListener mArtistListener;
+    private OnVenueConcertSelected mVenueListener;
 
-    public ConcertListAdapter(Activity activity, ArrayList<Concert> concerts)    {
+    public ConcertListAdapter(Activity activity, ArrayList<Concert> concerts,
+                              OnConcertSelectedListener listener)    {
         mActivity = activity;
         mConcerts = concerts;
+        mArtistListener = listener;
+    }
+
+    public ConcertListAdapter(Activity activity, ArrayList<Concert> concerts,
+                              OnVenueConcertSelected listener)    {
+        mActivity = activity;
+        mConcerts = concerts;
+        mVenueListener = listener;
     }
 
     @Override
@@ -41,10 +51,25 @@ public class ConcertListAdapter extends RecyclerView.Adapter<ConcertListAdapter.
 
     @Override
     public void onBindViewHolder(ConcertListHolder holder, int position) {
-        Concert concert = mConcerts.get(position);
+        final Concert concert = mConcerts.get(position);
 
         holder.mName.setText(concert.getName() + "\nVenue: " + concert.getVenue().getName());
-        holder.mAdapter = new SimpleArtistListAdapter(concert);
+        if (mArtistListener != null)    {
+            holder.mName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mArtistListener.onConcertSelected(concert);
+                }
+            });
+        } else {
+            holder.mName.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mVenueListener.onVenueConcertSelected(concert);
+                }
+            });
+        }
+        holder.mAdapter = new SimpleListAdapter(concert);
         holder.mPerformers.setAdapter(holder.mAdapter);
     }
 
@@ -58,12 +83,13 @@ public class ConcertListAdapter extends RecyclerView.Adapter<ConcertListAdapter.
         private TextView mName;
         private Button mExpand;
         private RecyclerView mPerformers;
-        private SimpleArtistListAdapter mAdapter;
+        private SimpleListAdapter mAdapter;
 
-        public ConcertListHolder(View view) {
+        ConcertListHolder(View view) {
             super(view);
 
             mName = (TextView) view.findViewById(R.id.concert_list_textView);
+            mName.setOnClickListener(this);
             mExpand = (Button) view.findViewById(R.id.concert_list_show_artists_button);
             mExpand.setOnClickListener(this);
             mPerformers = (RecyclerView) view.findViewById(R.id.concert_list_recyclerView);

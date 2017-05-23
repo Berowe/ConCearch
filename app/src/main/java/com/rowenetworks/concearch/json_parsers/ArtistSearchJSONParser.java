@@ -88,7 +88,7 @@ public class ArtistSearchJSONParser {
         getLastFmInfo(artist, lastFM);
     }
 
-    private static ArrayList<Concert> getConcerts(JSONObject songKick)  throws JSONException    {
+    static ArrayList<Concert> getConcerts(JSONObject songKick)  throws JSONException    {
         ArrayList<Concert> concertList = new ArrayList<>();
 
         JSONObject resultsPage = songKick.getJSONObject("resultsPage");
@@ -137,9 +137,6 @@ public class ArtistSearchJSONParser {
 
         int venueID;
         String venueName;
-        String venueCity;
-        String venueState = null;
-        String venueCountry = null;
         String url;
 
         if (!venue.isNull("id"))    {
@@ -148,21 +145,8 @@ public class ArtistSearchJSONParser {
             venueID = 0;
         }
         venueName = venue.getString("displayName");
-
-        JSONObject metroArea = venue.getJSONObject("metroArea");
-        venueCity = metroArea.getString("displayName");
-        if (metroArea.has("state")) {
-            JSONObject state = metroArea.getJSONObject("state");
-            venueState = state.getString("displayName");
-        }
-        if (metroArea.has("country"))   {
-            JSONObject country = metroArea.getJSONObject("country");
-            venueCountry = country.getString("displayName");
-        }
-
         url = venue.getString("uri");
-
-        v = new Venue(venueID, venueName, venueCity, venueState, venueCountry, url);
+        v = new Venue(venueID, venueName, url);
 
         if (venueID > 0)    {
             Database.addVenue(venueID, v);
