@@ -18,18 +18,18 @@ public class Constants {
     public static final String SONGKICK_SELECTED_ARTIST_URL_BEGINNING =
             "http://api.songkick.com/api/3.0/artists/";
     public static final String SONGKICK_SELECTED_ARTIST_URL_END =
-            "/calendar.json?apikey=io09K9l3ebJxmxe2";
+            "/calendar.json?apikey=email rowebe@msn.com";
     public static final String LASTFM_URL_BEGINNING =
             "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=";
     public static final String LASTFM_URL_END = "" +
-            "&api_key=43d8e0220d48794ceade532ae023c947&format=json";
+            "&api_key=email rowebe@msn.com&format=json";
     public static final String SONGKICK_VENUE_SEARCH_URL_BEGINNING =
             "http://api.songkick.com/api/3.0/search/venues.json?query=";
     public static final String SONGKICK_VENUE_DETAILS_SEARCH_URL_BEGINNING =
             "http://api.songkick.com/api/3.0/venues/";
     public static final String SONGKICK_VENUE_DETAILS_SEARCH_URL_END =
-            "/calendar.json?apikey=w6Xcjutcc9YOPSeQ";
-    public static final String SONGKICK_API_KEY = "&apikey=w6Xcjutcc9YOPSeQ";
+            "/calendar.json?apikey=email rowebe@msn.com";
+    public static final String SONGKICK_API_KEY = "&apikey=email rowebe@msn.com";
     //Here for possible future functionality
     public static final String SONGKICK_LOCATION_SEARCH_URL_BEGINNING =
             "http://api.songkick.com/api/3.0/events.json?location=geo:";
