@@ -44,13 +44,6 @@
             android:paddingEnd="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        <RadioButton
-            android:id="@+id/location_radioButton"
-            android:text="@string/location_search"
-            android:paddingStart="0dp"
-            android:paddingEnd="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
 
     </RadioGroup>
 
