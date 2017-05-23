@@ -40,7 +40,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener    
         mRadioGroup = (RadioGroup) view.findViewById(R.id.search_radioGroup);
         mArtistButton = (RadioButton) view.findViewById(R.id.artist_radioButton);
         mVenueButton = (RadioButton) view.findViewById(R.id.venue_radioButton);
-        mLocationButton = (RadioButton) view.findViewById(R.id.location_radioButton);
         mSearchButton = (Button) view.findViewById(R.id.search_button);
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,9 +64,6 @@ public class SearchFragment extends Fragment implements View.OnClickListener    
                     break;
                 case R.id.venue_radioButton:
                     new VenueSearchTask(mListener, search, mSearchButton);
-                    break;
-                case R.id.location_radioButton:
-
                     break;
             }
 
