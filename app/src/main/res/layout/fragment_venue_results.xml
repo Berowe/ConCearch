@@ -1,12 +1,21 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context="com.rowenetworks.concearch.fragments.VenueResultsFragment">
 
+    <ImageView
+        android:id="@+id/venue_results_imageView"
+        android:contentDescription="@string/image_content_description"
+        android:src="@drawable/powered_by_songkick"
+        android:layout_alignParentEnd="true"
+        android:layout_width="75dp"
+        android:layout_height="50dp"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/venue_results_recycleView"
+        android:layout_below="@+id/venue_results_imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-</FrameLayout>
+</RelativeLayout>
