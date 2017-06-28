@@ -62,7 +62,11 @@ public class SimpleListAdapter extends
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        int size = 0;
+        if (mList != null)  {
+            size = mList.size();
+        }
+        return size;
     }
 
     class SimArtistListHolder extends RecyclerView.ViewHolder   {

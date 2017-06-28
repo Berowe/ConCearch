@@ -28,7 +28,7 @@ import com.rowenetworks.concearch.model.Concert;
 import com.rowenetworks.concearch.model.Venue;
 /**
  * @author Braxton Rowe
- * @version 1.0
+ * @version 1.1
  * The MainActivity class is the container of fragments and the hub of their interactions.
  */
 public class MainActivity extends AppCompatActivity implements
@@ -66,8 +66,7 @@ public class MainActivity extends AppCompatActivity implements
     /**
      * This method is called from the TextView in the XML layout for the SimpleListAdapter.
      * When a user clicks an artist, either from the concert performer list, or similar artist
-     * list, this method will return the user to the search screen and put that name in the search
-     * EditText box.
+     * list, this method will return the user to the search screen and search for the artist.
      * @param view The TextView from holder_simple_list.xml
      */
     public void listArtistClicked(View view)    {
@@ -81,10 +80,7 @@ public class MainActivity extends AppCompatActivity implements
         if (sim_text != null)    {
             artistName = sim_text.getText().toString();
         }
-        searchFragment.onClick(view);
-        searchEditText.setText(artistName);
-        venueRadioButton.setSelected(false);
-        artistRadioButton.setSelected(true);
+        searchFragment.onArtistSelected(artistName);
     }
 
     /**

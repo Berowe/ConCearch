@@ -28,7 +28,8 @@ public class SearchFragment extends Fragment implements View.OnClickListener    
     RadioGroup mRadioGroup;
     RadioButton mArtistButton;
     RadioButton mVenueButton;
-    RadioButton mLocationButton;
+    //Saved for possible future functionality
+    //RadioButton mLocationButton;
     Button mSearchButton;
     Button mShowSearchButton;
 
@@ -71,6 +72,16 @@ public class SearchFragment extends Fragment implements View.OnClickListener    
             }
 
         }
+    }
+
+    /**
+     * Called from the Main Activity when an artist is selected in the Similar Artist List, or the
+     * Concert Artist Performing list.  Automatically searches for artist selected by user.
+     * @param query The name of the artist.
+     */
+    public void onArtistSelected(String query)  {
+        mSearchButton.setEnabled(false);
+        new ArtistSearchTask(mListener, query, mSearchButton);
     }
 
     @Override

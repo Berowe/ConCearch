@@ -57,11 +57,12 @@
     <Button
         android:id="@+id/venue_results_button"
         android:text="@string/show_details"
+        android:textColor="@color/hyperlink_blue"
         android:layout_below="@+id/venue_results_phone_textView"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:layout_centerInParent="true"
-        android:background="@android:color/transparent"
+        android:background="@drawable/recyclecustomborder_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
